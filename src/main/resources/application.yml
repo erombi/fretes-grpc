@@ -1,0 +1,11 @@
+micronaut:
+  application:
+    name: fretes
+datasources:
+  default:
+    url: ${DB_URL:`jdbc:postgresql://localhost:5432/frete`}
+    driverClassName: org.postgresql.Driver
+    username: ${DB_USERNAME:`frete`}
+    password: ${DB_PASSWORD:`password`}
+
+jpa.default.properties.hibernate.hbm2ddl.auto: update
