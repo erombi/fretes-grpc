@@ -9,3 +9,11 @@ datasources:
     password: ${DB_PASSWORD:`password`}
 
 jpa.default.properties.hibernate.hbm2ddl.auto: update
+
+endpoints:
+  all:
+    sensitive: false
+  health:
+    enabled: true
+    sensitive: false
+    details-visible: ANONYMOUS

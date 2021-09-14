@@ -1,9 +1,6 @@
 package br.com.zup.academy.frete
 
-import br.com.zup.academy.CalculaFreteRequest
-import br.com.zup.academy.CalculaFreteResponse
-import br.com.zup.academy.ErroDetails
-import br.com.zup.academy.FreteServiceGrpc
+import br.com.zup.academy.*
 import com.google.protobuf.Any
 import com.google.rpc.Code
 import io.grpc.Status
@@ -71,6 +68,24 @@ class FretesGrpcServer(
             responseObserver?.onCompleted()
         }
 
+    }
+
+    override fun retornaFretes(request: SemParametros?, responseObserver: StreamObserver<ListaFreteResponse>?) {
+        val fretes : List<Frete> = repository.findAll()
+
+        val freteResponses = fretes.map {
+            CalculaFreteResponse.newBuilder()
+                .setCep(it.cep)
+                .setValor(it.valor)
+                .build()
+        }
+
+        val response = ListaFreteResponse.newBuilder()
+            .addAllFretes(freteResponses)
+            .build()
+
+        responseObserver?.onNext(response)
+        responseObserver?.onCompleted()
     }
 
 }
